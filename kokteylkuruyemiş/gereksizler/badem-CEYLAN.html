@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bademler | Kokteyl Kuruyemiş</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .breadcrumbs{font-size:14px;color:var(--muted);margin:16px 0}
+    .breadcrumbs a{color:inherit}
+    .collection-layout{display:grid;grid-template-columns:280px 1fr;gap:24px;margin-top:12px}
+    .filter-card{background:var(--surface);border:1px solid #e5e7eb;border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+    .filter-card h3{margin:0 0 12px 0;font-size:16px}
+    .filter-group{margin-bottom:16px}
+    .filter-group legend{font-weight:600;margin-bottom:8px}
+    .filter-group label{display:flex;align-items:center;gap:8px;margin:6px 0;color:#374151}
+    .filter-actions{display:flex;gap:8px;margin-top:8px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 12px;border-radius:10px;border:1px solid #e5e7eb;background:#fff;cursor:pointer}
+    .btnPrimary{background:var(--primary);border-color:var(--primary);color:#fff}
+
+    .collection-head{display:flex;align-items:center;justify-content:space-between;margin:6px 0 14px}
+    .collection-head h1{font-size:28px;margin:0}
+    .sort{display:flex;align-items:center;gap:8px}
+    .sort select{border:1px solid #e5e7eb;border-radius:10px;padding:8px 10px;background:#fff}
+
+    .product-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+    @media (max-width: 900px){.collection-layout{grid-template-columns:1fr}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width: 560px){.product-grid{grid-template-columns:1fr}}
+
+    .product{background:var(--surface);border:1px solid #e5e7eb;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+    .product img{width:100%;height:220px;object-fit:cover}
+    .product .info{padding:16px}
+    .product .price{color:#065f46;font-weight:700;margin:6px 0}
+
+    .buy-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;flex-wrap:wrap}
+    .weight-control{display:inline-flex;align-items:center;gap:6px;padding:4px;border:1px solid #e5e7eb;border-radius:9999px;background:#fff;flex:1 1 200px}
+    .weight-control button{width:32px;height:32px;border-radius:50%;border:1px solid #e5e7eb;background:#f9fafb;cursor:pointer;font-size:18px;line-height:1}
+    .weight-control button:hover{background:#f3f4f6}
+    .weight-control input{width:80px;border:0;outline:none;text-align:right;font-weight:600;font-size:14px}
+    .weight-control .suffix{color:var(--muted);padding-right:6px}
+
+    .btn-outline{display:inline-flex;align-items:center;justify-content:center;padding:10px 12px;border-radius:10px;border:1px solid #e5e7eb;background:#fff;cursor:pointer}
+    .btn-outline:hover{background:#f3f4f6}
+    .buy-row .add-to-cart{white-space:nowrap}
+  </style>
+</head>
+<body data-no-global-cart="true">
+  <header class="site-header">
+    <div class="container nav">
+      <a href="anasayfa.html" class="brand" aria-label="Kokteyl Kuruyemiş Ana Sayfa">
+        <img src="/resimler/kokteylkuruyemislogo.png" alt="Kokteyl Kuruyemiş Logo" class="brand-logo" />
+        <span class="brand-name">Kokteyl Kuruyemiş</span>
+      </a>
+      <nav class="main-nav" aria-label="Ana menü">
+        <a href="anasayfa.html">Anasayfa</a>
+        <a href="hakkimizda.html">Hakkımızda</a>
+        <a href="iletisim.html">İletişim</a>
+      </nav>
+      <div class="actions">
+        <button id="productsToggle" class="products-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="productsMenu">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          <span>Ürünlerimiz</span>
+        </button>
+        <form class="search" role="search">
+          <input type="text" placeholder="Ara" aria-label="Sitede ara" />
+          <button type="submit" aria-label="Ara">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
+        </form>
+        <button class="icon-btn" aria-label="Hesabım">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </button>
+        <button class="icon-btn" aria-label="Favoriler">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        </button>
+        <button class="icon-btn" aria-label="Sepet">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 12.39a2 2 0 0 0 2 1.61h7.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+        </button>
+      </div>
+    </div>
+    <div id="productsMenu" class="products-menu" aria-label="Ürün kategorileri">
+      <div class="container">
+        <div class="menu-list">
+          <a href="kuruyemis/kuruyemis.html" class="menu-link">Kuruyemiş</a>
+          <a href="lokum/lokum.html" class="menu-link">Lokum</a>
+          <a href="kahve/kahve.html" class="menu-link">Kahve</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Konum">
+        <a href="anasayfa.html">Ana Sayfa</a> › <a href="#">Kuruyemiş</a> › <span>Bademler</span>
+      </nav>
+
+      <div class="collection-head">
+        <h1>Badem Çeşitlerimiz</h1>
+        <div class="sort">
+          <label for="sort">Sırala:</label>
+          <select id="sort" aria-label="Sıralama">
+            <option value="popular">Popülerlik</option>
+            <option value="price-asc">Fiyata Göre Artan</option>
+            <option value="price-desc">Fiyata Göre Azalan</option>
+            <option value="new">Yeni Ürünler</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="collection-layout">
+        <aside>
+          <div class="filter-card">
+            <h3>Filtrele</h3>
+            <fieldset class="filter-group">
+              <legend>Tür</legend>
+              <label><input type="checkbox" name="type" value="cig"/> Çiğ</label>
+              <label><input type="checkbox" name="type" value="kavrulmus"/> Kavrulmuş</label>
+              <label><input type="checkbox" name="type" value="fume"/> Füme</label>
+              <label><input type="checkbox" name="type" value="baharatli"/> Baharatlı</label>
+              <label><input type="checkbox" name="type" value="ozel"/> Özel Yapım</label>
+            </fieldset>
+            <fieldset class="filter-group">
+              <legend>Menşei</legend>
+              <label><input type="checkbox" name="origin" value="yerli"/> Yerli</label>
+              <label><input type="checkbox" name="origin" value="ithal"/> İthal</label>
+            </fieldset>
+            <fieldset class="filter-group">
+              <legend>Fiyat</legend>
+              <label><input type="radio" name="price" value="0-100"/> 0–100 ₺</label>
+              <label><input type="radio" name="price" value="100-200"/> 100–200 ₺</label>
+              <label><input type="radio" name="price" value="200+"/> 200+ ₺</label>
+            </fieldset>
+            <div class="filter-actions">
+              <button id="applyFilters" class="btn btnPrimary" type="button">Filtreleri Uygula</button>
+              <button id="clearFilters" class="btn" type="button">Temizle</button>
+            </div>
+          </div>
+        </aside>
+
+        <section>
+          <div class="product-grid">
+            <article class="product" data-type="kavrulmus" data-origin="yerli" data-price="129.90" data-index="0">
+              <img src="/resimler/badem-ici-cig.webp" alt="Kavrulmuş Tuzlu Badem" />
+              <div class="info">
+                <h3>Kavrulmuş Tuzlu Badem</h3>
+                <div class="rating" style="--rating:4.5">
+                  <div class="stars"><div class="stars-fill"></div></div>
+                </div>
+                <p class="price">₺129,90 / 100 g</p>
+                <div class="buy-row">
+                  <div class="weight-control" aria-label="Gramaj seçimi">
+                    <button type="button" class="weight-dec" aria-label="100 gram azalt">−</button>
+                    <input class="gram-input" type="number" inputmode="numeric" min="100" step="100" value="100" aria-label="Gram" />
+                    <span class="suffix">g</span>
+                    <button type="button" class="weight-inc" aria-label="100 gram arttır">+</button>
+                  </div>
+                  <button class="btn-outline add-to-cart">Sepete Ekle</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product" data-type="cig" data-origin="ithal" data-price="145.50" data-index="1">
+              <img src="/resimler/bademtuzlu.webp" alt="Tuzlu Badem" />
+              <div class="info">
+                <h3>Tuzlu Badem</h3>
+                <div class="rating" style="--rating:4">
+                  <div class="stars"><div class="stars-fill"></div></div>
+                </div>
+                <p class="price">₺145,50 / 100 g</p>
+                <div class="buy-row">
+                  <div class="weight-control" aria-label="Gramaj seçimi">
+                    <button type="button" class="weight-dec" aria-label="100 gram azalt">−</button>
+                    <input class="gram-input" type="number" inputmode="numeric" min="100" step="100" value="100" aria-label="Gram" />
+                    <span class="suffix">g</span>
+                    <button type="button" class="weight-inc" aria-label="100 gram arttır">+</button>
+                  </div>
+                  <button class="btn-outline add-to-cart">Sepete Ekle</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product" data-type="fume" data-origin="ithal" data-price="155.90" data-index="2">
+              <img src="/resimler/bademici.jpg" alt="Badem İçi" />
+              <div class="info">
+                <h3>Badem İçi</h3>
+                <div class="rating" style="--rating:5">
+                  <div class="stars"><div class="stars-fill"></div></div>
+                </div>
+                <p class="price">₺155,90 / 100 g</p>
+                <div class="buy-row">
+                  <div class="weight-control" aria-label="Gramaj seçimi">
+                    <button type="button" class="weight-dec" aria-label="100 gram azalt">−</button>
+                    <input class="gram-input" type="number" inputmode="numeric" min="100" step="100" value="100" aria-label="Gram" />
+                    <span class="suffix">g</span>
+                    <button type="button" class="weight-inc" aria-label="100 gram arttır">+</button>
+                  </div>
+                  <button class="btn-outline add-to-cart">Sepete Ekle</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product" data-type="ozel" data-origin="yerli" data-price="140.00" data-index="3">
+              <img src="/resimler/bademkavurlmuş.jpg" alt="Kavurlmuş Badem" />
+              <div class="info">
+                <h3>Kavrulmuş Badem</h3>
+                <div class="rating" style="--rating:4.2">
+                  <div class="stars"><div class="stars-fill"></div></div>
+                </div>
+                <p class="price">₺140,00 / 100 g</p>
+                <div class="buy-row">
+                  <div class="weight-control" aria-label="Gramaj seçimi">
+                    <button type="button" class="weight-dec" aria-label="100 gram azalt">−</button>
+                    <input class="gram-input" type="number" inputmode="numeric" min="100" step="100" value="100" aria-label="Gram" />
+                    <span class="suffix">g</span>
+                    <button type="button" class="weight-inc" aria-label="100 gram arttır">+</button>
+                  </div>
+                  <button class="btn-outline add-to-cart">Sepete Ekle</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product" data-type="kavrulmus,ozel" data-origin="ithal" data-price="180.00" data-index="4">
+              <img src="/resimler/bademunu.webp" alt="Badem unu" />
+              <div class="info">
+                <h3>Badem Unu</h3>
+                <div class="rating" style="--rating:5">
+                  <div class="stars"><div class="stars-fill"></div></div>
+                </div>
+                <p class="price">₺450,00 / 250 g</p>
+                <div class="buy-row">
+                  <button class="btn-outline add-to-cart">Sepete Ekle</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product" data-type="baharatli,ozel" data-origin="yerli" data-price="165.50" data-index="5">
+              <img src="/resimler/bademyagi.jpeg" alt="Badem Yaği" />
+              <div class="info">
+                <h3>Badem Yağı</h3>
+                <div class="rating" style="--rating:3">
+                  <div class="stars"><div class="stars-fill"></div></div>
+                </div>
+                <p class="price">₺165,50 / 50 ml</p>
+                <div class="buy-row">
+                  <button class="btn-outline add-to-cart">Sepete Ekle</button>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <div class="footer-brand">
+        <div class="footer-image-placeholder"><img src="/resimler/kokteylkuruyemislogo.png" alt=""></div>
+      </div>
+      <div>
+        <h4>Kurumsal</h4>
+        <ul class="link-list">
+          <li><a href="iletisim.html">İletişim</a></li>
+          <li><a href="hakkimizda.html">Hakkımızda</a></li>
+          <li><a href="#">Sıkça Sorulan Sorular</a></li>
+          <li><a href="#">Gizlilik Politikası</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Ürünlerimiz</h4>
+        <ul class="link-list">
+          <li><a href="badem.html">Badem</a></li>
+          <li><a href="#">Fındık</a></li>
+          <li><a href="#">Ceviz</a></li>
+          <li><a href="#">Antep Fıstığı</a></li>
+          <li><a href="#">Karışık Kuruyemiş</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kullanıcı</h4>
+        <ul class="link-list">
+          <li><a href="#">Giriş Yap</a></li>
+          <li><a href="#">Üye Ol</a></li>
+          <li><a href="#">Siparişlerim</a></li>
+          <li><a href="#">Hesabım</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Sosyal Medya</h4>
+        <div class="social">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zm6.25-3.25a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-3h2.5V9.5A3.5 3.5 0 0 1 14 6h3v3h-3a1 1 0 0 0-1 1V12h4l-.5 3H13v7A10 10 0 0 0 22 12z"/></svg>
+          </a>
+          <a href="#" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M22 5.8c-.7.3-1.4.5-2.1.6.8-.5 1.4-1.2 1.7-2.1-.7.4-1.6.8-2.4 1C18.4 4.5 17.3 4 16 4c-2.4 0-4.3 2-4.3 4.3 0 .3 0 .6.1.9-3.6-.2-6.9-1.9-9-4.6-.4.7-.6 1.5-.6 2.4 0 1.5.8 2.8 2 3.6-.6 0-1.2-.2-1.7-.5v.1c0 2.1 1.5 3.9 3.4 4.3-.4.1-.8.2-1.3.2-.3 0-.6 0-.9-.1.6 1.9 2.4 3.3 4.6 3.3-1.6 1.3-3.7 2.1-5.9 2.1H2c2.1 1.3 4.6 2 7.2 2 8.6 0 13.3-7.1 13.3-13.3v-.6c.9-.7 1.5-1.3 1.9-2z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div class="payment-logos" aria-label="Kabul edilen kartlar">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Troy-logo-sloganli.png/500px-Troy-logo-sloganli.png" alt="Troy" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" />
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIH9yXVb3-GKI3bTKxmKGtMwlWuwNefiuGaA&s" alt="American Express" />
+      </div>
+      <p class="copy">© 2025 Kokteyl Kuruyemiş. Tüm Hakları Saklıdır.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="badem.js"></script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hakkımızda | Kokteyl Kuruyemiş</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .about-hero{padding:24px 0 8px}
+    .about-hero h1{font-size:36px;margin:0 0 8px}
+    .about-hero p{margin:0;color:var(--muted)}
+
+    .about-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;margin-top:16px}
+    .about-text h2{margin:0 0 8px}
+    .about-text p{margin:8px 0;color:#374151}
+    .about-quote{margin:14px 0;padding:12px 14px;border-left:4px solid var(--primary);background:var(--ring);border-radius:8px}
+    .about-img{border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+    .about-img img{width:100%;height:360px;object-fit:cover;display:block}
+
+    .values{margin-top:28px}
+    .values h3{margin:0 0 8px}
+    .values p.lead{margin:0 0 14px;color:var(--muted)}
+    .values-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .value{background:var(--surface);border:1px solid #e5e7eb;border-radius:12px;padding:14px;box-shadow:var(--shadow);text-align:center}
+    .value .ico{width:40px;height:40px;margin:0 auto 8px;border:1px solid #e5e7eb;border-radius:10px;display:grid;place-items:center;background:#fafafa;color:var(--primary)}
+    .value h4{margin:0 0 6px}
+    .value p{margin:0;color:var(--muted)}
+
+    .timeline{margin:34px 0}
+    .timeline h3{margin:0 0 6px;text-align:center}
+    .timeline p.lead{margin:0 0 18px;text-align:center;color:var(--muted)}
+    .tl-wrap{position:relative;padding:6px 0}
+    .tl-line{position:absolute;left:50%;top:0;bottom:0;width:2px;background:#e5e7eb}
+    .tl-item{position:relative;width:calc(50% - 28px);background:var(--surface);border:1px solid #e5e7eb;border-radius:12px;box-shadow:var(--shadow);padding:14px}
+    .tl-item.left{margin:12px auto 12px 0}
+    .tl-item.right{margin:12px 0 12px auto}
+    .tl-item h5{margin:0 0 6px;color:var(--primary)}
+    .tl-item p{margin:0;color:#374151}
+    .tl-item::before{content:"";position:absolute;top:18px;width:12px;height:12px;border-radius:9999px;background:var(--primary);box-shadow:0 0 0 4px #dcfce7}
+    .tl-item.left::before{right:-34px}
+    .tl-item.right::before{left:-34px}
+
+    @media (max-width: 960px){
+      .about-layout{grid-template-columns:1fr}
+      .about-img img{height:260px}
+      .values-grid{grid-template-columns:1fr}
+      .tl-line{left:20px}
+      .tl-item{width:100%;padding-left:26px}
+      .tl-item.left,.tl-item.right{margin:12px 0}
+      .tl-item::before{left:6px}
+    }
+
+    .main-nav a[aria-current="page"]{background:var(--ring);color:#065f46}
+
+    .about-banner{position:relative;height:320px;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:url('https://images.unsplash.com/photo-1587049352862-2a00f00e5f16?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat}
+    .about-banner .overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;background:linear-gradient(to bottom, rgba(0,0,0,.2), rgba(0,0,0,.45))}
+    .about-banner h1{color:#fff;font-size:40px;margin:0 0 8px}
+    .about-banner p{color:#e5e7eb;margin:0}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="anasayfa.html" class="brand" aria-label="Kokteyl Kuruyemiş Ana Sayfa">
+        <img src="/resimler/kokteylkuruyemislogo.png" alt="Kokteyl Kuruyemiş Logo" class="brand-logo" />
+        <span class="brand-name">Kokteyl Kuruyemiş</span>
+      </a>
+      <nav class="main-nav" aria-label="Ana menü">
+        <a href="anasayfa.html">Anasayfa</a>
+        <a href="hakkimizda.html" aria-current="page">Hakkımızda</a>
+        <a href="iletisim.html">İletişim</a>
+      </nav>
+      <div class="actions">
+        <button id="productsToggle" class="products-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="productsMenu">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          <span>Ürünlerimiz</span>
+        </button>
+        <form class="search" role="search">
+          <input type="text" placeholder="Ara" aria-label="Sitede ara" />
+          <button type="submit" aria-label="Ara">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
+        </form>
+        <button class="icon-btn" aria-label="Hesabım">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </button>
+        <button class="icon-btn" aria-label="Favoriler">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        </button>
+        <button class="icon-btn" aria-label="Sepet">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 12.39a2 2 0 0 0 2 1.61h7.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+        </button>
+      </div>
+    </div>
+    <div id="productsMenu" class="products-menu" aria-label="Ürün kategorileri">
+      <div class="container">
+        <div class="menu-list">
+          <a href="kuruyemis/kuruyemis.html" class="menu-link">Kuruyemiş</a>
+          <a href="lokum/lokum.html" class="menu-link">Lokum</a>
+          <a href="kahve/kahve.html" class="menu-link">Kahve</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <section class="container">
+      <div class="about-banner">
+        <div class="overlay">
+          <h1>Hakkımızda</h1>
+          <p>Doğadan gelen lezzetlerin özenle size ulaştığı yolculuk.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="container about-layout">
+      <section class="about-text">
+        <h2>Bizim Hikayemiz</h2>
+        <p>Kokteyl Kuruyemiş, taze ve kaliteli kuruyemişleri en doğal halleriyle sunma tutkusu ile kuruldu. Küçük bir atölyede başlayan yolculuğumuz, bugün yüzlerce müşterimize güvenle ulaşan bir lezzet deneyimine dönüştü.</p>
+        <p>Amacımız; doğallığı koruyarak, sağlıklı atıştırmalıkları herkes için ulaşılabilir kılmak ve sofralara neşe katmak.</p>
+        <div class="about-quote">“Toprağın cömertliğini, özenle işleyerek en doğal haliyle sunuyoruz. Çünkü en iyi lezzet, doğanın kendisidir.”</div>
+        <div class="values">
+          <h3>Değerlerimiz</h3>
+          <p class="lead">İşimizi bu temel ilkeler üzerine kuruyoruz.</p>
+          <div class="values-grid">
+            <div class="value">
+              <div class="ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2C8 5 5 9 5 13a7 7 0 0 0 14 0c0-4-3-8-7-11z"></path></svg></div>
+              <h4>Doğallık</h4>
+              <p>Katkı maddesi olmadan, en saf haliyle sunarız.</p>
+            </div>
+            <div class="value">
+              <div class="ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4.5L5.5 20l2-7L2 9h7z"></path></svg></div>
+              <h4>Kalite</h4>
+              <p>Her aşamada yüksek kalite standartlarını uygularız.</p>
+            </div>
+            <div class="value">
+              <div class="ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path></svg></div>
+              <h4>Müşteri Mutluluğu</h4>
+              <p>Her zaman en iyisini hak ettiğinizi düşünüyoruz.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <aside style="width: 500px; height: 350px;"  class="about-img">
+        <img src="/resimler/Kokteyl_p001.webp" alt="Üretim tesisimizden bir kare" />
+      </aside>
+    </div>
+
+    <section style="margin-left: 180px;" class="container timeline">
+      <h3>Yolculuğumuz</h3>
+      <p class="lead">Kuruluşumuzdan bugüne önemli anlar.</p>
+      <div class="tl-wrap">
+        <div class="tl-line" aria-hidden="true"></div>
+        <article class="tl-item left">
+          <h5>2015 – Kuruluş</h5>
+          <p>Kokteyl Kuruyemiş, taze kuruyemişleri pazara sunma hayaliyle kuruldu.</p>
+        </article>
+        <article class="tl-item right">
+          <h5>2018 – İlk Mağaza</h5>
+          <p>İlk fiziksel mağazamızı açarak daha fazla müşteriye ulaştık.</p>
+        </article>
+        <article class="tl-item left">
+          <h5>2021 – Online Satış</h5>
+          <p>E-ticaret ile tüm Türkiye’ye ulaştık.</p>
+        </article>
+        <article class="tl-item right">
+          <h5>2024 – Yeni Ufuklar</h5>
+          <p>Ürün yelpazemizi genişleterek yeni pazarlara açıldık.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <h4>Ürünlerimiz</h4>
+        <ul class="link-list">
+          <li><a href="#">Fıstıklar</a></li>
+          <li><a href="badem.html">Bademler</a></li>
+          <li><a href="#">Cevizler</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>İşletme</h4>
+        <ul class="link-list">
+          <li><a href="hakkimizda.html">Hakkımızda</a></li>
+          <li><a href="iletisim.html">İletişim</a></li>
+          <li><a href="#">Sık Sorulan Sorular</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Bizi Takip Edin</h4>
+        <div class="social">
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-3h2.5V9.5A3.5 3.5 0 0 1 14 6h3v3h-3a1 1 0 0 0-1 1V12h4l-.5 3H13v7A10 10 0 0 0 22 12z"/></svg>
+          </a>
+          <a href="#" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M22 5.8c-.7.3-1.4.5-2.1.6.8-.5 1.4-1.2 1.7-2.1-.7.4-1.6.8-2.4 1C18.4 4.5 17.3 4 16 4c-2.4 0-4.3 2-4.3 4.3 0 .3 0 .6.1.9-3.6-.2-6.9-1.9-9-4.6-.4.7-.6 1.5-.6 2.4 0 1.5.8 2.8 2 3.6-.6 0-1.2-.2-1.7-.5v.1c0 2.1 1.5 3.9 3.4 4.3-.4.1-.8.2-1.3.2-.3 0-.6 0-.9-.1.6 1.9 2.4 3.3 4.6 3.3-1.6 1.3-3.7 2.1-5.9 2.1H2c2.1 1.3 4.6 2 7.2 2 8.6 0 13.3-7.1 13.3-13.3v-.6c.9-.7 1.5-1.3 1.9-2z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zm6.25-3.25a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4>Hesap</h4>
+        <ul class="link-list">
+          <li><a href="#">Giriş Yap</a></li>
+          <li><a href="#">Üye Ol</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container copy">
+      <p>© 2025 Kokteyl Kuruyemiş. Tüm Hakları Saklıdır.</p>
+    </div>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
